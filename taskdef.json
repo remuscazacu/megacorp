@@ -1,0 +1,32 @@
+{
+  "family": "patientping-ecs",
+  "cpu": "256",
+  "memory": "512",
+  "networkMode": "awsvpc",
+  "executionRoleArn": "arn:aws:iam::779478809907:role/patientping-ecs-execution-role",
+  "taskRoleArn": "arn:aws:iam::779478809907:role/patientping-ecs-task-role",
+  "runtimePlatform": { "operatingSystemFamily": "LINUX" },
+  "requiresCompatibilities": ["FARGATE"],
+  "volumes": [],
+  "containerDefinitions": [
+    {
+      "name": "patientping-ecs",
+      "image": "779478809907.dkr.ecr.us-east-1.amazonaws.com/patientping-ecs:latest",
+      "portMappings": [
+        {
+          "containerPort": 8000,
+          "hostPort": 8000
+        }
+      ],
+      "essential": true,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/patientping-ecs",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
+    }
+  ]
+}
